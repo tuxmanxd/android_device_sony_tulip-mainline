@@ -20,8 +20,9 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
-PRODUCT_NAME := aosp_tulip
+PRODUCT_NAME := lineage_tulip
 PRODUCT_DEVICE := tulip-mainline
 PRODUCT_MODEL := Xperia M4 Aqua
 PRODUCT_BRAND := sony

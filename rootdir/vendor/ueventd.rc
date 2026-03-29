@@ -25,3 +25,26 @@ firmware_directories /vendor/firmware_mnt/image/
 
 # media.codec2
 /dev/ion		0664	system	system
+
+#LED
+on boot
+    symlink /sys/class/backlight/1a98000.dsi.0 /sys/class/backlight/lcd-backlight
+    chown system system /sys/class/backlight/1a98000.dsi.0/brightness
+    chmod 0660 /sys/class/backlight/1a98000.dsi.0/brightness
+
+on property:sys.boot_completed=1
+    chown system system /sys/class/backlight/1a98000.dsi.0/brightness
+    chmod 0664 /sys/class/backlight/1a98000.dsi.0/brightness
+    chown system system /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/green/brightness
+    chown system system /sys/class/leds/blue/brightness
+    chmod 0664 /sys/class/leds/red/brightness
+    chmod 0664 /sys/class/leds/green/brightness
+    chmod 0664 /sys/class/leds/blue/brightness
+
+# Standard ALSA nodes
+/dev/snd/* 0660   system     audio
+
+subsystem snd
+    devname uevent_devname
+    dirname /dev/snd

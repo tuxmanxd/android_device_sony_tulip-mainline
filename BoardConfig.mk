@@ -15,6 +15,8 @@
 # 
 
 TARGET_BOARD_PLATFORM := msm8939
+DTBTOOL := $(HOST_OUT_EXECUTABLES)/dtbTool
+DEVICE_PATH := device/sony/tulip-mainline
 
 # Primary Arch
 TARGET_ARCH := arm64
@@ -30,10 +32,29 @@ TARGET_2ND_CPU_VARIANT := cortex-a53
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 
+# Kernel source
+TARGET_KERNEL_SOURCE := kernel/sony/msm8939
+TARGET_KERNEL_CONFIG := msm8939_defconfig
+
+TARGET_KERNEL_ARCH := arm64
+TARGET_KERNEL_HEADER_ARCH := arm64
+KERNEL_TOOLCHAIN_PREFIX := aarch64-linux-gnu-
+TARGET_KERNEL_CROSS_COMPILE_OVERRIDE := aarch64-linux-gnu-
+KERNEL_TOOLCHAIN := /usr/bin/
+
+# Dtb parameters
+BOARD_BOOTIMG_HEADER_VERSION := 0
+TARGET_KERNEL_APPEND_DTB := true
+BOARD_KERNEL_IMAGE_NAME := Image.gz
+BOARD_CUSTOM_BOOTIMG_MK := device/sony/tulip-mainline/custombootimg.mk
+TARGET_KERNEL_DEVICE_TREE := msm8939-sony-xperia-kanuti-tulip
+
 # Kernel cmdline parameters
 BOARD_KERNEL_CMDLINE += androidboot.hardware=tulip androidboot.boot_devices=soc/7824900.sdhci
 BOARD_KERNEL_CMDLINE += androidboot.memcg=1 cgroup.memory=nokmem
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive androidboot.usbconfigfs=1
+BOARD_KERNEL_CMDLINE += androidboot.debug.renderengine.backend=gles
+BOARD_KERNEL_CMDLINE += androidboot.persist.sys.renderengine.backend=gles
 
 BOARD_KERNEL_BASE        := 0x80000000
 BOARD_KERNEL_PAGESIZE    := 2048

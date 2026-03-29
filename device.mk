@@ -17,7 +17,9 @@
 # Device overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
-PRODUCT_SOONG_NAMESPACES += external/mesa3d
+PRODUCT_SOONG_NAMESPACES += \
+    external/mesa3d \
+    packages/apps/Bluetooth
 
 # Treble
 PRODUCT_FULL_TREBLE_OVERRIDE := true
@@ -79,7 +81,8 @@ PRODUCT_PACKAGES += \
     gralloc.gbm \
     hwcomposer.drm \
     libGLES_mesa \
-    libdrm_freedreno
+    libdrm_freedreno \
+    libgbm
 
 # Gatekeeper
 PRODUCT_PACKAGES += \
@@ -98,7 +101,7 @@ PRODUCT_PACKAGES += \
 # Lights AIDL HALs
 PRODUCT_PACKAGES += \
     lights.msm8939 \
-    android.hardware.lights-service.qti
+    android.hardware.lights-service.example
     
 # Memtrack
 PRODUCT_PACKAGES += \
@@ -125,8 +128,8 @@ PRODUCT_PACKAGES += \
 
 # Audio config
 PRODUCT_COPY_FILES += \
-    device/linaro/hikey/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
-    device/linaro/hikey/audio/audio_policy_configuration_bluetooth_legacy_hal.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration_bluetooth_legacy_hal.xml \
+    device/sony/tulip-mainline/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml \
+    device/sony/tulip-mainline/audio/audio_policy_configuration_bluetooth_legacy_hal.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration_bluetooth_legacy_hal.xml \
     frameworks/av/services/audiopolicy/config/a2dp_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/a2dp_in_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/a2dp_in_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/bluetooth_audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/bluetooth_audio_policy_configuration.xml \
@@ -171,8 +174,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.hardware.gralloc=gbm \
     ro.hardware.hwcomposer=drm \
     ro.sf.lcd_density=320 \
-    ro.opengles.version=196609 
+    ro.opengles.version=196609 \
+    ro.secure=0 \
+    ro.adb.secure=0 \
+    ro.debuggable=1 \
+    persist.sys.usb.config=mtp,adb \
+    persist.service.adb.enable=1
 
 # Wi-Fi interface name
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
+
+
